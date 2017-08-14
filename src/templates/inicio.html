@@ -1,0 +1,76 @@
+	{% extends "base.html" %}
+	{% load crispy_forms_tags %}
+	{% load static%}
+
+	{% block head_static %}Bienvenido{% endblock %}
+	
+
+	{% block jumbotron %}
+	{% if  request.user.is_staff %}
+	<table class="table"> 
+	{% for instance in queryset %}
+	<tr><td>{{forloop.counter}}</td><td>{{instance}}<td/><td>{{instance.nombre}}</td><td>{{instance.timestamp}}</td></tr> <br/>
+	{% endfor%}	</table>{% else %}
+
+	<div class="jumbotron">
+	    <div class="container">
+
+   
+	<div class="row">
+	<div class="col-sm-6">
+	<h1>Prueba Django 1.11 </h1>
+	        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+	        <p>To see the difference between static and fixed top navbars, just scroll.</p>
+	        <p>
+	          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+	         
+	          <span class="fa-stack fa-lg">
+  				<i class="fa fa-square-o fa-stack-2x"></i>
+ 				 <a href="https://www.facebook.com/glopezcallejas"><i class="fa fa-facebook fa-stack-1x"></i></a>
+			</span>
+	        </p>
+	</div>
+	<div class="col-sm-6";'><iframe width="550" height="315" src="https://www.youtube.com/embed/h_HkUbukpNM" frameborder="0" allowfullscreen></iframe></div>
+	</div>
+   </div>
+   </div>
+   {% endif %}
+	{% endblock %}
+
+	<!--<h1>Hola mundo</h1>-->
+	{{titulo}}</br>
+	<hr/>
+	</br>
+
+	{% block content %}
+	{% if not request.user.is_staff %}
+	<div class="row">
+		<div class="col-sm-3 col-xs-12 pull-left">
+		<p class="lead text-align-center">{{titulo}}</p>
+	{% if not user.is_authenticated %}	
+	<form method="POST" action="">{% csrf_token %}
+	 {% csrf_token %}
+	 {{ el_form|crispy }}
+	 <input type="submit" value='Registrame' /><br/><br/>
+	 <i class=" fa fa-refresh fa-spin fa-3x fa-fw"></i>
+	</form>
+	{%else %}
+	
+	<i class="text-aling-center  fa fa-hand-peace-o fa-5x" aria-hidden="true"></i>
+	{% endif%}
+	</div>
+	<div class="col-sm-3">
+		<p class="lead text-align-center">Creado con Django 1.11 &amp; Bootstrap 
+		<a href="https://github.com/gusLopezC"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a></p>
+
+		<img src="{% static 'img/djangopony.png' %}" width="300"/>	
+
+	</div>
+	<div class="col-sm-3">
+		<p class="lead text-align-center"><img src="{% static 'img/python-django-logo.jpg' %}" width="550"></p>
+	</div>
+	</div>
+	<hr/>
+	{% endif %}
+	{% endblock%}
+
